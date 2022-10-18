@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "to-do-list-365717",
+  "private_key_id": "313a392fa8142f4934f50821f21688fc70a18429",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDDhZCbmCnAaGcD\np/x+Y5ZEd2BTT04vCr6AK2iFMASqZs/yPCAEgG5Tzq0CRSsJNoD6anu6kFqqpZb1\nja23MxiDKGOnNUaiS3Xvk7sonTueEmmFzD4Tq2u+HQ+fUATzGKyFR9q4ZbzCdyuD\nbnscsArDSM2Wgtw2XmpICxfu5wwZ/u7JSiZz8q95qFhbhLOzDYOzRYtyw9h1TAGy\n/tIgtP2Uji6Q1O8l5AetAiu6SQ6lh+P05VbwiLQYzbZU2uM+Ug0Xb6cz+wzwNxHT\nja3L8RcW/kg5cvd9JE50FfSX0Sq9w+zFMVVtzbDdBwD2BeEuF7qrxUkX4sKv3g49\nKKgtQgKFAgMBAAECggEAJL552+fXdteX/nWoK6dzArhtg5KMlqYeAW/G83q/8bcj\nHrqiaL4rHbhiRqIxkYhq6kSvLnM4+sdmTIzc5+gkE+f3/GE0fkUQq563hk0wOkdr\nCdBFnUQymhaTjETJPVc2etCzX8KM2/3x0UAmxlAmIaeRrVa35EbPkez1yTmmCk9M\nVImZaeflyPcDlY858xS1/fp3X7hYymkGn2VWSK7P19+D+XAVUrO5SF/voxXEV2Ll\nJ8B5svFXMBWOhhj22LiXZtUUCmPhQRwFbasGyBLRI4OUyY05i7qqJQjdGUjz3ivl\ns2gr9CuaaPO72DrG1+YG+uZddPJXZqMFuYxNvUnNiQKBgQD3XBqravPVW+rnm1qY\nkmOUUrDefogTfw0j6uFw1i5Nm5s9bE1JtTghLYFS/WX1sUCYsEA1SXyt5yuyfjGU\nyADKboVwcy1urA+7OPhSVpAAwINRr5YC6pSllm8pRRdl0OQE6tSvf8jviVUdR+X5\necvDWQUbwdrx78dHJWfI3uXZDQKBgQDKWeyGs2+MGw1tabymKodGDeQ666+fYv0t\nmY5Uhe82UOVEq55/7o7k+958OzfswXlETUtYF3GprdD09+x153MCJKAtq6Z920jr\n+FUW4ommqnBgfstntwpmojxikkAbtnfYcc7cyT4YfBqsbYFKAC1Uqt55miYiYtNo\n0DLVXmKBWQKBgC/ncnLIH7iuOGvqNj1d/FL5QK+WKZw8+rp9/nLvx7/X5tSaaM1h\nfyFNwsHjuR8/2Ja5a3XmaXL0Vg4XSlrZ8O1DQixo4d+RCurjOZQYl4LNxaDINHEU\nJP18iMKhUsqxDbe2EsJ6KNva6NTm267Y25FVaBvcCx7XpOwuXk8Ue8bxAoGARI6K\n8GhC1rkjp3o3jCTEiBuUw9GuQtYK6TQpYMGv9jsaMlXi8X0ltLcQ/g4iOHikWVvG\ntyXaQJ6/OP/2gUvVT1iRXGfXlLSC1E/ipEpEUM9WG5tZ1t3RDEzTIKJkTf9YQ2Dr\nsSoNe8YwU1MWhrfgo9rwXUq4uNW6wrwnPNspjKECgYEA3Rn/kQKoEUhgRdL+Ki/2\nhaatys8R8ui4L0s81pmSsps1FI/4aSj/haoCYKlLODRRGTwjgXe0JsGR9wJ+DxvP\nD3VptgmtblJzhkeTIPqCOYEeNOaUayfzzoQlhhyMm0uJIp3eewTDINWxFZvFehBT\nHqjgqTivvQVE4VORGlMRHeo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "leonardo-todolist@to-do-list-365717.iam.gserviceaccount.com",
+  "client_id": "112532160186961769498",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/leonardo-todolist%40to-do-list-365717.iam.gserviceaccount.com"
+}
