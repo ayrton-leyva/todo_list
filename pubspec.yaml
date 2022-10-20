@@ -29,6 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  json_annotation:
   gsheets:
   flutter:
     sdk: flutter
@@ -38,6 +39,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   oauth2: ^2.0.0
+  loading_animations: ^2.2.0
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.1
+  flutter_speed_dial: ^6.2.0
+  fluttertoast: ^8.1.1
+  intl: ^0.17.0
+  ionicons: ^0.2.1
 
 dev_dependencies:
   flutter_test:

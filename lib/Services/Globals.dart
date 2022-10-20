@@ -16,6 +16,8 @@ const credentials = r'''
 }
 
 ''';
+// Name
+const name = "Lorenzo";
 
 // 2D Image Task spreadsheetID
 const spreadsheetID_2D_Image_Task =
@@ -29,3 +31,5 @@ const spreadsheetID_Writing_Task =
 // Code/Unity Task spreadsheetID
 const spreadsheetID_Code_Unity_Task =
     '1LkwIYUthgE3JSgXYp6IOUPdW9K-5IG3uSs74u8Em7OY';
+
+const Color standard_color = Color.fromARGB(255, 14, 121, 6);
