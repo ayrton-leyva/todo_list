@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/Gui/Custom_cards.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
+import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 import 'package:todo_list/Services/Task.dart';
 import 'package:intl/intl.dart';
-import 'package:ionicons/ionicons.dart';
 
 class Home_3D extends StatefulWidget {
   const Home_3D({super.key});
@@ -31,7 +31,11 @@ class _Home_3DState extends State<Home_3D> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: Icon(Icons.update),
             ),
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                functions.reload_all();
+              });
+            },
           )
         ],
       ),
@@ -40,11 +44,67 @@ class _Home_3DState extends State<Home_3D> {
           children: [
             Column(
               children: [
-                Todo_widget(standard_style: standard_style, w: w, h: h),
+                globals.ToDo_3D == []
+                    ? Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: Colors.blue.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('All Tasks are Completed'),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Todo_widget(standard_style: standard_style, w: w, h: h),
                 SizedBox(height: 10),
-                To_Review_widget(standard_style: standard_style, w: w, h: h),
+                globals.ToReview_3D == []
+                    ? Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: Colors.blue.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('All Tasks are Completed'),
+                            ),
+                          ),
+                        ),
+                      )
+                    : To_Review_widget(
+                        standard_style: standard_style, w: w, h: h),
                 SizedBox(height: 10),
-                Completed_widget(standard_style: standard_style, w: w, h: h),
+                globals.Completed_3D == []
+                    ? Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: Colors.blue.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('All Tasks are Completed'),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Completed_widget(
+                        standard_style: standard_style, w: w, h: h),
               ],
             ),
           ],
@@ -75,7 +135,7 @@ class Todo_widget extends StatelessWidget {
         description: "Sedia nella stanza sporca di sangue",
         state: "TO-DO",
         gradeLevel: 5,
-        dateTime: "",
+        date: "",
         completedBy: "",
         confirmedBy: "");
     Task fakeData_2 = Task.getData(
@@ -85,7 +145,7 @@ class Todo_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "TO-DO",
         gradeLevel: 1,
-        dateTime: "",
+        date: "",
         completedBy: "",
         confirmedBy: "");
     Task fakeData_3 = Task.getData(
@@ -95,7 +155,7 @@ class Todo_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "TO-DO",
         gradeLevel: 3,
-        dateTime: "",
+        date: "",
         completedBy: "",
         confirmedBy: "");
     return Column(
@@ -118,6 +178,7 @@ class Todo_widget extends StatelessWidget {
         Custom_Card_Todo(
           w: w,
           task: fakeData_2,
+          job: "3D Task",
         ),
         SizedBox(
           height: 5,
@@ -125,6 +186,7 @@ class Todo_widget extends StatelessWidget {
         Custom_Card_Todo(
           w: w,
           task: fakeData_3,
+          job: "3D Task",
         ),
         SizedBox(
           height: 5,
@@ -132,6 +194,7 @@ class Todo_widget extends StatelessWidget {
         Custom_Card_Todo(
           w: w,
           task: fakeData_1,
+          job: "3D Task",
         ),
       ],
     );
@@ -159,9 +222,9 @@ class To_Review_widget extends StatelessWidget {
         description: "Sedia nella stanza sporca di sangue",
         state: "Review",
         gradeLevel: 5,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Lorenzo",
-        confirmedBy: 'Leonardo');
+        confirmedBy: 'Lorenzo,Leonardo');
     Task fakeData_2 = Task.getData(
         position: 2,
         superTask: "Room 4",
@@ -169,7 +232,7 @@ class To_Review_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "Review",
         gradeLevel: 1,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Leonardo",
         confirmedBy: 'Leonardo,Ayrton');
     Task fakeData_3 = Task.getData(
@@ -179,9 +242,9 @@ class To_Review_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "Review",
         gradeLevel: 3,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Ayrton",
-        confirmedBy: 'Ayrton,Lorenzo');
+        confirmedBy: 'Ayrton,Lorenzo,Leonardo');
     return Column(
       children: [
         Padding(
@@ -199,15 +262,27 @@ class To_Review_widget extends StatelessWidget {
             ),
           ),
         ),
-        Custom_Card_Review(w: w, task: fakeData_2),
+        Custom_Card_Review(
+          w: w,
+          task: fakeData_2,
+          job: "3D Task",
+        ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Review(w: w, task: fakeData_3),
+        Custom_Card_Review(
+          w: w,
+          task: fakeData_3,
+          job: "3D Task",
+        ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Review(w: w, task: fakeData_1),
+        Custom_Card_Review(
+          w: w,
+          task: fakeData_1,
+          job: "3D Task",
+        ),
       ],
     );
   }
@@ -234,9 +309,9 @@ class Completed_widget extends StatelessWidget {
         description: "Sedia nella stanza sporca di sangue",
         state: "Completed",
         gradeLevel: 5,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Lorenzo",
-        confirmedBy: 'Leonardo');
+        confirmedBy: 'Lorenzo,Leonardo');
     Task fakeData_2 = Task.getData(
         position: 2,
         superTask: "Room 4",
@@ -244,7 +319,7 @@ class Completed_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "Completed",
         gradeLevel: 1,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Leonardo",
         confirmedBy: 'Leonardo,Ayrton');
     Task task = Task.getData(
@@ -254,7 +329,7 @@ class Completed_widget extends StatelessWidget {
         description: "Tavolo nell stanza con cadavere sopra",
         state: "Completed",
         gradeLevel: 3,
-        dateTime: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
+        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
         completedBy: "Ayrton",
         confirmedBy: 'Ayrton,Lorenzo');
     return Column(
@@ -274,15 +349,27 @@ class Completed_widget extends StatelessWidget {
             ),
           ),
         ),
-        Custom_Card_Completed(task: fakeData_2, w: w),
+        Custom_Card_Completed(
+          task: fakeData_2,
+          w: w,
+          job: "3D Task",
+        ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Completed(task: task, w: w),
+        Custom_Card_Completed(
+          task: task,
+          w: w,
+          job: "3D Task",
+        ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Completed(task: fakeData_1, w: w),
+        Custom_Card_Completed(
+          task: fakeData_1,
+          w: w,
+          job: "3D Task",
+        ),
       ],
     );
   }

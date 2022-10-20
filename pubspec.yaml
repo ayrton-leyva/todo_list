@@ -46,6 +46,8 @@ dependencies:
   fluttertoast: ^8.1.1
   intl: ^0.17.0
   ionicons: ^0.2.1
+  flutter_slidable: ^2.0.0
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:

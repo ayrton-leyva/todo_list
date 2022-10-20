@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
+import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
 class Home_Unity extends StatefulWidget {
   const Home_Unity({super.key});
@@ -27,7 +28,9 @@ class _Home_UnityState extends State<Home_Unity> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: Icon(Icons.update),
             ),
-            onTap: () {},
+            onTap: () {
+              functions.reload_all();
+            },
           )
         ],
       ),

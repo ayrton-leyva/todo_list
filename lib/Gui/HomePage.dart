@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:todo_list/Gui/2D_Task.dart';
 import 'package:todo_list/Gui/3D_Task.dart';
 import 'package:todo_list/Gui/Code.dart';
@@ -8,6 +9,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Example extends StatefulWidget {
   @override
@@ -15,6 +17,12 @@ class Example extends StatefulWidget {
 }
 
 class _ExampleState extends State<Example> {
+  void changeColor(Color color) {
+    setState(() {
+      globals.standard_color = color;
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   PageController controller = PageController(initialPage: 0);
   int _selectedIndex = 0;
@@ -73,6 +81,57 @@ class _ExampleState extends State<Example> {
             onTap: () {
               Fluttertoast.showToast(msg: "Unity Tasks ...", fontSize: 20);
               form_dialog(context, _formKey, "Unity Task");
+            },
+          ),
+          SpeedDialChild(
+            child: Icon(
+              Ionicons.color_palette_outline,
+              color: globals.standard_color,
+            ),
+            backgroundColor: Colors.white,
+            label: "Colors",
+            onTap: () {
+              Fluttertoast.showToast(msg: "Select Colors ...", fontSize: 20);
+              List<Color> colors = [
+                Color(0xff000000),
+                Color(0xff3032034),
+                Color(0xff798f7d),
+                Color(0xff0e7906),
+                Color(0xff1e508b),
+                Color(0xff2196f3),
+                Color(0xff92e1c1),
+                Color(0xff09A54D),
+                Color(0xffF295E0),
+                Color(0xffffc0cb),
+                Color(0xff800080),
+                Color(0xff420da2),
+                Color(0xff2F19DB),
+                Color(0xff808080),
+                Color(0xffc4b46c),
+                Color(0xffffbf00),
+                Color(0xffffa500),
+                Color(0xffDF0000),
+                Color(0xff800000),
+                Color(0xff964C00),
+              ];
+              colors.sort((a, b) => a.value.compareTo(b.value));
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Pick a color!'),
+                    content: SingleChildScrollView(
+                      child: BlockPicker(
+                        pickerColor: globals.standard_color,
+                        onColorChanged: changeColor,
+                        availableColors: colors,
+                        layoutBuilder: pickerLayoutBuilder,
+                        itemBuilder: pickerItemBuilder,
+                      ),
+                    ),
+                  );
+                },
+              );
             },
           ),
         ],
@@ -153,6 +212,7 @@ void form_dialog(
   showDialog(
     context: context,
     builder: (BuildContext context) {
+      var current_value = 1;
       return AlertDialog(
         title: Text(type),
         content: Stack(
@@ -186,7 +246,9 @@ void form_dialog(
                       ),
                     ),
                   ),
-                  Slider_Difficulty_(),
+                  Slider_Difficulty_(
+                    currentValue: current_value.toDouble(),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
@@ -211,24 +273,43 @@ void form_dialog(
 }
 
 class Slider_Difficulty_ extends StatefulWidget {
-  const Slider_Difficulty_({super.key});
+  Slider_Difficulty_({
+    super.key,
+    required this.currentValue,
+  });
+  double currentValue;
 
   @override
   State<Slider_Difficulty_> createState() => _Slider_Difficulty_State();
 }
 
 class _Slider_Difficulty_State extends State<Slider_Difficulty_> {
-  double _currentValue = 1;
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Urgency " + _currentValue.toInt().toString(),
+        Container(
+          width: 30,
+          height: 30,
+          child: Center(
+              child: Text(
+            widget.currentValue.toInt().toString(),
+            style: TextStyle(color: Colors.white),
+          )),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: (widget.currentValue == 1)
+                ? globals.standard_color.withOpacity(0.6)
+                : (widget.currentValue == 2)
+                    ? globals.standard_color.withOpacity(0.7)
+                    : (widget.currentValue == 3)
+                        ? globals.standard_color.withOpacity(0.8)
+                        : (widget.currentValue == 4)
+                            ? globals.standard_color.withOpacity(0.9)
+                            : globals.standard_color.withOpacity(1),
+            border: Border.all(
+              width: 1,
+              color: Colors.black,
             ),
           ),
         ),
@@ -236,16 +317,67 @@ class _Slider_Difficulty_State extends State<Slider_Difficulty_> {
           thumbColor: Color.fromARGB(255, 5, 43, 2),
           activeColor: globals.standard_color,
           inactiveColor: Color.fromARGB(72, 14, 121, 6),
-          value: _currentValue,
+          value: widget.currentValue,
           min: 1,
           max: 5,
           onChanged: (value) {
             setState(() {
-              _currentValue = double.parse(value.ceil().toString());
+              widget.currentValue = double.parse(value.ceil().toString());
             });
           },
-        )
+        ),
       ],
     );
   }
+}
+
+Widget pickerLayoutBuilder(
+  BuildContext context,
+  List<Color> colors,
+  PickerItem child,
+) {
+  Orientation orientation = MediaQuery.of(context).orientation;
+  return SizedBox(
+    width: 300,
+    height: orientation == Orientation.portrait ? 360 : 240,
+    child: GridView.count(
+      crossAxisCount: orientation == Orientation.portrait ? 4 : 5,
+      crossAxisSpacing: 5,
+      mainAxisSpacing: 5,
+      children: [for (Color color in colors) child(color)],
+    ),
+  );
+}
+
+Widget pickerItemBuilder(
+    Color color, bool isCurrentColor, void Function() changeColor) {
+  return Container(
+    margin: const EdgeInsets.all(8),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(14),
+      color: color,
+      boxShadow: [
+        BoxShadow(
+            color: color.withOpacity(0.8),
+            offset: const Offset(1, 2),
+            blurRadius: 5)
+      ],
+    ),
+    child: Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: changeColor,
+        borderRadius: BorderRadius.circular(14),
+        child: AnimatedOpacity(
+          opacity: isCurrentColor ? 1 : 0,
+          duration: const Duration(milliseconds: 250),
+          child: Icon(
+            Icons.done,
+            size: 32,
+            color: useWhiteForeground(color) ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+    ),
+  );
 }

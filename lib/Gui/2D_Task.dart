@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
+import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
 class Home_2D extends StatefulWidget {
   const Home_2D({super.key});
@@ -29,7 +30,9 @@ class _Home_2DState extends State<Home_2D> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: Icon(Icons.update),
             ),
-            onTap: () {},
+            onTap: () {
+              functions.reload_all();
+            },
           )
         ],
       ),

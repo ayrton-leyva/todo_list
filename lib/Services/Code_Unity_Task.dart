@@ -14,7 +14,7 @@ class UserCodeUnityTask_SheetsAPI {
 
   static Future init() async {
     final spreadsheet = await _gsheet.spreadsheet(_spreedsheetID);
-    _userSheet = await _getWorkSheet(spreadsheet, title: 'Users');
+    _userSheet = await _getWorkSheet(spreadsheet, title: 'User');
   }
 
   static Future<Worksheet> _getWorkSheet(Spreadsheet spreadsheet,
@@ -34,7 +34,7 @@ class UserCodeUnityTask_SheetsAPI {
   static Future<int> getRowCount() async {
     if (_userSheet == null) return 0;
     final lastRow = await _userSheet!.values.lastRow();
-    return lastRow == null ? 0 : int.parse(lastRow.first);
+    return lastRow!.first == "id" ? 0 : int.parse(lastRow.first);
   }
 
   static Future<Task?> getById(int id) async {
@@ -49,7 +49,7 @@ class UserCodeUnityTask_SheetsAPI {
   static Future<List<Task>> getAll() async {
     if (_userSheet == null) return <Task>[];
     final tasks = await _userSheet!.values.map.allRows();
-    return tasks!.map((e) => Task.fromJson(e)).toList();
+    return tasks == null ? [] : tasks.map((e) => Task.fromJson(e)).toList();
   }
 
   static Future<bool> updateAll(

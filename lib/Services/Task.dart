@@ -6,15 +6,15 @@ import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
 class SheetField {
-  static final String position = "";
-  static final String superTask = "";
-  static final String name = "";
-  static final String description = "";
-  static final String state = "";
-  static final String gradeLevel = "";
-  static final String dateTime = "";
-  static final String completedBy = "";
-  static final String confirmedBy = "";
+  static final String position = "id";
+  static final String superTask = "superTask";
+  static final String name = "name";
+  static final String description = "description";
+  static final String state = "state";
+  static final String gradeLevel = "gradeLevel";
+  static final String date = "date";
+  static final String completedBy = "completedBy";
+  static final String confirmedBy = "confirmedBy";
 
   static List<String> getFields() => [
         position,
@@ -23,7 +23,7 @@ class SheetField {
         description,
         state,
         gradeLevel,
-        dateTime,
+        date,
         completedBy,
         confirmedBy,
       ];
@@ -40,7 +40,7 @@ class Task {
   String state;
   int gradeLevel;
   // late variables
-  late String dateTime;
+  late String date;
   late String completedBy;
   late String confirmedBy;
   // Constructors
@@ -52,9 +52,9 @@ class Task {
     required this.gradeLevel,
   }) {
     initPosition();
-    dateTime = "";
-    completedBy = "";
-    confirmedBy = "";
+    date = "--";
+    completedBy = "--";
+    confirmedBy = "--";
   }
   Task.getData({
     required this.position,
@@ -63,7 +63,7 @@ class Task {
     required this.description,
     required this.state,
     required this.gradeLevel,
-    required this.dateTime,
+    required this.date,
     required this.completedBy,
     required this.confirmedBy,
   });
@@ -74,7 +74,7 @@ class Task {
   }
 
   set setDateTIme(DateTime date) {
-    dateTime = date.toLocal().toString();
+    this.date = date.toLocal().toString();
   }
 
   set setCompletedBy(String name) {
@@ -92,7 +92,7 @@ class Task {
         SheetField.description: description,
         SheetField.state: state,
         SheetField.gradeLevel: gradeLevel,
-        SheetField.dateTime: dateTime,
+        SheetField.date: date,
         SheetField.completedBy: completedBy,
         SheetField.confirmedBy: confirmedBy,
       };
@@ -100,11 +100,11 @@ class Task {
   static Task fromJson(Map<String, dynamic> json) => Task.getData(
         position: jsonDecode(json[SheetField.position]),
         superTask: json[SheetField.superTask],
-        name: json[SheetField.superTask],
-        description: json[SheetField.superTask],
-        state: json[SheetField.superTask],
-        gradeLevel: jsonDecode(json[SheetField.superTask]),
-        dateTime: json[SheetField.dateTime],
+        name: json[SheetField.name],
+        description: json[SheetField.description],
+        state: json[SheetField.state],
+        gradeLevel: jsonDecode(json[SheetField.gradeLevel]),
+        date: json[SheetField.date],
         completedBy: json[SheetField.completedBy],
         confirmedBy: json[SheetField.confirmedBy],
       );

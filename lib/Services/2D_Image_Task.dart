@@ -17,7 +17,7 @@ class User2DImageTask_SheetsAPI {
       final spreadsheet = await _gsheet.spreadsheet(_spreedsheetID);
       _userSheet = await _getWorkSheet(
         spreadsheet,
-        title: 'Users',
+        title: 'User',
       );
     } catch (e) {
       print("Initialize Error 2D $e");
@@ -37,13 +37,15 @@ class User2DImageTask_SheetsAPI {
 
   static Future insert(List<Map<String, dynamic>> rowList) async {
     if (rowList.isEmpty || _userSheet == null) return;
+
+    print(rowList);
     _userSheet!.values.map.appendRows(rowList);
   }
 
   static Future<int> getRowCount() async {
     if (_userSheet == null) return 0;
     final lastRow = await _userSheet!.values.lastRow();
-    return lastRow == null ? 0 : int.parse(lastRow.first);
+    return lastRow!.first == "id" ? 0 : int.parse(lastRow.first);
   }
 
   static Future<Task?> getById(int id) async {
@@ -98,6 +100,7 @@ class User2DImageTask_SheetsAPI {
     if (_userSheet == null) return false;
     List<bool> check = [];
     final totalRowNumber = await User2DImageTask_SheetsAPI.getRowCount();
+    print(totalRowNumber);
     for (int i = 1; i <= totalRowNumber; i++) {
       check.add(await User2DImageTask_SheetsAPI.updateCell(
         row: i,

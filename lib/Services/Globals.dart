@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/Services/Task.dart';
 
 // Create credentials
 const credentials = r'''
@@ -32,4 +33,21 @@ const spreadsheetID_Writing_Task =
 const spreadsheetID_Code_Unity_Task =
     '1LkwIYUthgE3JSgXYp6IOUPdW9K-5IG3uSs74u8Em7OY';
 
-const Color standard_color = Color.fromARGB(255, 14, 121, 6);
+Color standard_color = Color.fromARGB(255, 14, 121, 6);
+
+// 3D Image Taks
+List<Task> ToDo_3D = [];
+List<Task> ToReview_3D = [];
+List<Task> Completed_3D = [];
+// 2D Image Taks
+List<Task> ToDo_2D = [];
+List<Task> ToReview_2D = [];
+List<Task> Completed_2D = [];
+// Writing Taks
+List<Task> ToDo_Writing = [];
+List<Task> ToReview_Writing = [];
+List<Task> Completed_Writing = [];
+// Unity Taks
+List<Task> ToDo_Unity = [];
+List<Task> ToReview_Unity = [];
+List<Task> Completed_Unity = [];
