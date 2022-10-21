@@ -5,7 +5,7 @@ import 'package:todo_list/Services/Task.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
-class Custom_Card_Todo extends StatelessWidget {
+class Custom_Card_Todo extends StatefulWidget {
   const Custom_Card_Todo({
     Key? key,
     required this.w,
@@ -17,6 +17,11 @@ class Custom_Card_Todo extends StatelessWidget {
   final String job;
 
   @override
+  State<Custom_Card_Todo> createState() => _Custom_Card_TodoState();
+}
+
+class _Custom_Card_TodoState extends State<Custom_Card_Todo> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -26,7 +31,7 @@ class Custom_Card_Todo extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task: task, job: job);
+                functions.delete_task(task: widget.task, job: widget.job);
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -38,7 +43,8 @@ class Custom_Card_Todo extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.ToDo_to_Review(task: task, job: job);
+                functions.ToDo_to_Review(task: widget.task, job: widget.job);
+                setState(() {});
               },
               backgroundColor: Colors.green,
               icon: Icons.check_outlined,
@@ -54,7 +60,7 @@ class Custom_Card_Todo extends StatelessWidget {
               debugPrint('Card tapped.');
             },
             child: SizedBox(
-              width: w * 6 / 7,
+              width: widget.w * 6 / 7,
               height: 100,
               child: Column(
                 children: [
@@ -69,19 +75,19 @@ class Custom_Card_Todo extends StatelessWidget {
                             height: 30,
                             child: Center(
                                 child: Text(
-                              task.gradeLevel.toString(),
+                              widget.task.gradeLevel.toString(),
                               style: TextStyle(color: Colors.white),
                             )),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (task.gradeLevel == 1)
+                              color: (widget.task.gradeLevel == 1)
                                   ? globals.standard_color.withOpacity(0.6)
-                                  : (task.gradeLevel == 2)
+                                  : (widget.task.gradeLevel == 2)
                                       ? globals.standard_color.withOpacity(0.7)
-                                      : (task.gradeLevel == 3)
+                                      : (widget.task.gradeLevel == 3)
                                           ? globals.standard_color
                                               .withOpacity(0.8)
-                                          : (task.gradeLevel == 4)
+                                          : (widget.task.gradeLevel == 4)
                                               ? globals.standard_color
                                                   .withOpacity(0.9)
                                               : globals.standard_color
@@ -97,7 +103,7 @@ class Custom_Card_Todo extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8, 0, 0, 0.0),
                         child: Text(
-                          task.superTask,
+                          widget.task.superTask,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 22),
                         ),
@@ -109,7 +115,7 @@ class Custom_Card_Todo extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        task.name,
+                        widget.task.name,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 13),
                       ),
@@ -120,7 +126,7 @@ class Custom_Card_Todo extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        task.description,
+                        widget.task.description,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -135,7 +141,7 @@ class Custom_Card_Todo extends StatelessWidget {
   }
 }
 
-class Custom_Card_Review extends StatelessWidget {
+class Custom_Card_Review extends StatefulWidget {
   const Custom_Card_Review({
     Key? key,
     required this.w,
@@ -148,16 +154,22 @@ class Custom_Card_Review extends StatelessWidget {
   final String job;
 
   @override
+  State<Custom_Card_Review> createState() => _Custom_Card_ReviewState();
+}
+
+class _Custom_Card_ReviewState extends State<Custom_Card_Review> {
+  @override
   Widget build(BuildContext context) {
     int counter = 0;
-    if (task.confirmedBy.contains("Ayrton")) counter++;
-    if (task.confirmedBy.contains("Leonardo")) counter++;
-    if (task.confirmedBy.contains("Lorenzo")) counter++;
-    if (task.confirmedBy.contains("Martina")) counter++;
+    if (widget.task.confirmedBy.contains("Ayrton")) counter++;
+    if (widget.task.confirmedBy.contains("Leonardo")) counter++;
+    if (widget.task.confirmedBy.contains("Lorenzo")) counter++;
+    if (widget.task.confirmedBy.contains("Martina")) counter++;
     List<Widget> just_down = [
       SlidableAction(
         onPressed: (context) {
-          functions.Review_thumbs_down(task: task, job: job);
+          functions.Review_thumbs_down(task: widget.task, job: widget.job);
+          setState(() {});
         },
         backgroundColor: Colors.orange,
         icon: Icons.thumb_down,
@@ -166,14 +178,16 @@ class Custom_Card_Review extends StatelessWidget {
     List<Widget> both_actions = [
       SlidableAction(
         onPressed: (context) {
-          functions.Review_thumbs_down(task: task, job: job);
+          functions.Review_thumbs_down(task: widget.task, job: widget.job);
+          setState(() {});
         },
         backgroundColor: Colors.orange,
         icon: Icons.thumb_down,
       ),
       SlidableAction(
         onPressed: (context) {
-          functions.Review_thumbs_up(task: task, job: job);
+          functions.Review_thumbs_up(task: widget.task, job: widget.job);
+          setState(() {});
         },
         backgroundColor: Colors.green,
         icon: Icons.thumb_up,
@@ -187,7 +201,8 @@ class Custom_Card_Review extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task: task, job: job);
+                functions.delete_task(task: widget.task, job: widget.job);
+                setState(() {});
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -196,7 +211,7 @@ class Custom_Card_Review extends StatelessWidget {
         ),
         endActionPane: ActionPane(
           motion: ScrollMotion(),
-          children: task.confirmedBy.contains(globals.name)
+          children: widget.task.confirmedBy.contains(globals.name)
               ? just_down
               : both_actions,
         ),
@@ -207,10 +222,10 @@ class Custom_Card_Review extends StatelessWidget {
             splashColor: globals.standard_color.withAlpha(30),
             onTap: () {
               debugPrint('Card tapped.');
-              print(task.completedBy);
+              print(widget.task.completedBy);
             },
             child: SizedBox(
-              width: w * 6 / 7,
+              width: widget.w * 6 / 7,
               height: 100,
               child: Column(
                 children: [
@@ -225,19 +240,19 @@ class Custom_Card_Review extends StatelessWidget {
                             height: 30,
                             child: Center(
                                 child: Text(
-                              task.gradeLevel.toString(),
+                              widget.task.gradeLevel.toString(),
                               style: TextStyle(color: Colors.white),
                             )),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (task.gradeLevel == 1)
+                              color: (widget.task.gradeLevel == 1)
                                   ? globals.standard_color.withOpacity(0.6)
-                                  : (task.gradeLevel == 2)
+                                  : (widget.task.gradeLevel == 2)
                                       ? globals.standard_color.withOpacity(0.7)
-                                      : (task.gradeLevel == 3)
+                                      : (widget.task.gradeLevel == 3)
                                           ? globals.standard_color
                                               .withOpacity(0.8)
-                                          : (task.gradeLevel == 4)
+                                          : (widget.task.gradeLevel == 4)
                                               ? globals.standard_color
                                                   .withOpacity(0.9)
                                               : globals.standard_color
@@ -253,18 +268,22 @@ class Custom_Card_Review extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8, 0, 0, 0.0),
                         child: Text(
-                          task.superTask,
+                          widget.task.superTask,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 22),
                         ),
                       ),
-                      globals.name == task.completedBy
+                      globals.name == widget.task.completedBy
                           ? Text(
-                              "(" + task.date + ")",
+                              "(" + widget.task.date + ")",
                               style: TextStyle(fontSize: 15),
                             )
                           : Text(
-                              "(" + task.completedBy + "-" + task.date + ")",
+                              "(" +
+                                  widget.task.completedBy +
+                                  "-" +
+                                  widget.task.date +
+                                  ")",
                               style: TextStyle(fontSize: 15),
                             ),
                       Padding(
@@ -284,12 +303,12 @@ class Custom_Card_Review extends StatelessWidget {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            task.name,
+                            widget.task.name,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 13),
                           ),
                         ),
-                        globals.name == task.completedBy
+                        globals.name == widget.task.completedBy
                             ? Padding(
                                 padding: EdgeInsets.fromLTRB(15, 0, 0, 0.0),
                                 child: Icon(
@@ -312,7 +331,7 @@ class Custom_Card_Review extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        task.description,
+                        widget.task.description,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),
@@ -327,7 +346,7 @@ class Custom_Card_Review extends StatelessWidget {
   }
 }
 
-class Custom_Card_Completed extends StatelessWidget {
+class Custom_Card_Completed extends StatefulWidget {
   const Custom_Card_Completed({
     Key? key,
     required this.task,
@@ -340,6 +359,11 @@ class Custom_Card_Completed extends StatelessWidget {
   final String job;
 
   @override
+  State<Custom_Card_Completed> createState() => _Custom_Card_CompletedState();
+}
+
+class _Custom_Card_CompletedState extends State<Custom_Card_Completed> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -349,7 +373,8 @@ class Custom_Card_Completed extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task: task, job: job);
+                functions.delete_task(task: widget.task, job: widget.job);
+                setState(() {});
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -361,7 +386,9 @@ class Custom_Card_Completed extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.Completed_to_Review(task: task, job: job);
+                functions.Completed_to_Review(
+                    task: widget.task, job: widget.job);
+                setState(() {});
               },
               backgroundColor: Colors.orange,
               icon: Icons.thumb_down,
@@ -375,10 +402,10 @@ class Custom_Card_Completed extends StatelessWidget {
             splashColor: globals.standard_color.withAlpha(30),
             onTap: () {
               debugPrint('Card tapped.');
-              print(task.completedBy);
+              print(widget.task.completedBy);
             },
             child: SizedBox(
-              width: w * 6 / 7,
+              width: widget.w * 6 / 7,
               height: 100,
               child: Column(
                 children: [
@@ -393,19 +420,19 @@ class Custom_Card_Completed extends StatelessWidget {
                             height: 30,
                             child: Center(
                                 child: Text(
-                              task.gradeLevel.toString(),
+                              widget.task.gradeLevel.toString(),
                               style: TextStyle(color: Colors.white),
                             )),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: (task.gradeLevel == 1)
+                              color: (widget.task.gradeLevel == 1)
                                   ? globals.standard_color.withOpacity(0.6)
-                                  : (task.gradeLevel == 2)
+                                  : (widget.task.gradeLevel == 2)
                                       ? globals.standard_color.withOpacity(0.7)
-                                      : (task.gradeLevel == 3)
+                                      : (widget.task.gradeLevel == 3)
                                           ? globals.standard_color
                                               .withOpacity(0.8)
-                                          : (task.gradeLevel == 4)
+                                          : (widget.task.gradeLevel == 4)
                                               ? globals.standard_color
                                                   .withOpacity(0.9)
                                               : globals.standard_color
@@ -421,18 +448,22 @@ class Custom_Card_Completed extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8, 0, 0, 0.0),
                         child: Text(
-                          task.superTask,
+                          widget.task.superTask,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 22),
                         ),
                       ),
-                      globals.name == task.completedBy
+                      globals.name == widget.task.completedBy
                           ? Text(
-                              "(" + task.date + ")",
+                              "(" + widget.task.date + ")",
                               style: TextStyle(fontSize: 15),
                             )
                           : Text(
-                              "(" + task.completedBy + "-" + task.date + ")",
+                              "(" +
+                                  widget.task.completedBy +
+                                  "-" +
+                                  widget.task.date +
+                                  ")",
                               style: TextStyle(fontSize: 15),
                             ),
                     ],
@@ -444,7 +475,7 @@ class Custom_Card_Completed extends StatelessWidget {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            task.name,
+                            widget.task.name,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 13),
                           ),
@@ -457,7 +488,7 @@ class Custom_Card_Completed extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        task.description,
+                        widget.task.description,
                         style: TextStyle(fontSize: 10),
                       ),
                     ),

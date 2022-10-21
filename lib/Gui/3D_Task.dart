@@ -32,9 +32,8 @@ class _Home_3DState extends State<Home_3D> {
               child: Icon(Icons.update),
             ),
             onTap: () {
-              setState(() {
-                functions.reload_all();
-              });
+              functions.reload_all();
+              setState(() {});
             },
           )
         ],
@@ -49,7 +48,7 @@ class _Home_3DState extends State<Home_3D> {
                         shadowColor: globals.standard_color,
                         elevation: 20,
                         child: InkWell(
-                          splashColor: Colors.blue.withAlpha(30),
+                          splashColor: globals.standard_color.withAlpha(30),
                           onTap: () {
                             debugPrint('Card tapped.');
                           },
@@ -69,7 +68,7 @@ class _Home_3DState extends State<Home_3D> {
                         shadowColor: globals.standard_color,
                         elevation: 20,
                         child: InkWell(
-                          splashColor: Colors.blue.withAlpha(30),
+                          splashColor: globals.standard_color.withAlpha(30),
                           onTap: () {
                             debugPrint('Card tapped.');
                           },
@@ -90,7 +89,7 @@ class _Home_3DState extends State<Home_3D> {
                         shadowColor: globals.standard_color,
                         elevation: 20,
                         child: InkWell(
-                          splashColor: Colors.blue.withAlpha(30),
+                          splashColor: globals.standard_color.withAlpha(30),
                           onTap: () {
                             debugPrint('Card tapped.');
                           },
@@ -114,7 +113,7 @@ class _Home_3DState extends State<Home_3D> {
   }
 }
 
-class Todo_widget extends StatelessWidget {
+class Todo_widget extends StatefulWidget {
   const Todo_widget({
     Key? key,
     required this.standard_style,
@@ -127,81 +126,46 @@ class Todo_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<Todo_widget> createState() => _Todo_widgetState();
+}
+
+class _Todo_widgetState extends State<Todo_widget> {
+  @override
   Widget build(BuildContext context) {
-    Task fakeData_1 = Task.getData(
-        position: 1,
-        superTask: "Room 1",
-        name: "Chair",
-        description: "Sedia nella stanza sporca di sangue",
-        state: "TO-DO",
-        gradeLevel: 5,
-        date: "",
-        completedBy: "",
-        confirmedBy: "");
-    Task fakeData_2 = Task.getData(
-        position: 2,
-        superTask: "Room 4",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "TO-DO",
-        gradeLevel: 1,
-        date: "",
-        completedBy: "",
-        confirmedBy: "");
-    Task fakeData_3 = Task.getData(
-        position: 2,
-        superTask: "Room 2",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "TO-DO",
-        gradeLevel: 3,
-        date: "",
-        completedBy: "",
-        confirmedBy: "");
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "To-do List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
+    List<Widget> list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: InkWell(
+            child: Text(
+              "To-do List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
+      ),
+    ];
+    for (int i = 0; i < globals.ToDo_3D.length; i++) {
+      list.addAll([
         Custom_Card_Todo(
-          w: w,
-          task: fakeData_2,
+          w: widget.w,
+          task: globals.ToDo_3D[i],
           job: "3D Task",
         ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Todo(
-          w: w,
-          task: fakeData_3,
-          job: "3D Task",
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Custom_Card_Todo(
-          w: w,
-          task: fakeData_1,
-          job: "3D Task",
-        ),
-      ],
-    );
+      ]);
+    }
+    return Column(children: list);
   }
 }
 
-class To_Review_widget extends StatelessWidget {
+class To_Review_widget extends StatefulWidget {
   const To_Review_widget({
     Key? key,
     required this.standard_style,
@@ -214,81 +178,46 @@ class To_Review_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<To_Review_widget> createState() => _To_Review_widgetState();
+}
+
+class _To_Review_widgetState extends State<To_Review_widget> {
+  @override
   Widget build(BuildContext context) {
-    Task fakeData_1 = Task.getData(
-        position: 1,
-        superTask: "Room 1",
-        name: "Chair",
-        description: "Sedia nella stanza sporca di sangue",
-        state: "Review",
-        gradeLevel: 5,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Lorenzo",
-        confirmedBy: 'Lorenzo,Leonardo');
-    Task fakeData_2 = Task.getData(
-        position: 2,
-        superTask: "Room 4",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "Review",
-        gradeLevel: 1,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Leonardo",
-        confirmedBy: 'Leonardo,Ayrton');
-    Task fakeData_3 = Task.getData(
-        position: 2,
-        superTask: "Room 2",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "Review",
-        gradeLevel: 3,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Ayrton",
-        confirmedBy: 'Ayrton,Lorenzo,Leonardo');
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "To-Review List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
+    List<Widget> list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: InkWell(
+            child: Text(
+              "To-Review List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
+      ),
+    ];
+    for (int i = 0; i < globals.ToReview_3D.length; i++) {
+      list.addAll([
         Custom_Card_Review(
-          w: w,
-          task: fakeData_2,
+          w: widget.w,
+          task: globals.ToReview_3D[i],
           job: "3D Task",
         ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Review(
-          w: w,
-          task: fakeData_3,
-          job: "3D Task",
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Custom_Card_Review(
-          w: w,
-          task: fakeData_1,
-          job: "3D Task",
-        ),
-      ],
-    );
+      ]);
+    }
+    return Column(children: list);
   }
 }
 
-class Completed_widget extends StatelessWidget {
+class Completed_widget extends StatefulWidget {
   const Completed_widget({
     Key? key,
     required this.standard_style,
@@ -301,76 +230,42 @@ class Completed_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<Completed_widget> createState() => _Completed_widgetState();
+}
+
+class _Completed_widgetState extends State<Completed_widget> {
+  @override
   Widget build(BuildContext context) {
-    Task fakeData_1 = Task.getData(
-        position: 1,
-        superTask: "Room 1",
-        name: "Chair",
-        description: "Sedia nella stanza sporca di sangue",
-        state: "Completed",
-        gradeLevel: 5,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Lorenzo",
-        confirmedBy: 'Lorenzo,Leonardo');
-    Task fakeData_2 = Task.getData(
-        position: 2,
-        superTask: "Room 4",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "Completed",
-        gradeLevel: 1,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Leonardo",
-        confirmedBy: 'Leonardo,Ayrton');
-    Task task = Task.getData(
-        position: 2,
-        superTask: "Room 2",
-        name: "Table",
-        description: "Tavolo nell stanza con cadavere sopra",
-        state: "Completed",
-        gradeLevel: 3,
-        date: DateFormat('EEE d MMM').format(DateTime.now()).toString(),
-        completedBy: "Ayrton",
-        confirmedBy: 'Ayrton,Lorenzo');
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "Completed List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
+    List<Widget> list = [];
+    list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: InkWell(
+            child: Text(
+              "Completed List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
+      ),
+    ];
+    for (int i = 0; i < globals.Completed_3D.length; i++) {
+      list.addAll([
         Custom_Card_Completed(
-          task: fakeData_2,
-          w: w,
+          w: widget.w,
+          task: globals.Completed_3D[i],
           job: "3D Task",
         ),
         SizedBox(
           height: 5,
         ),
-        Custom_Card_Completed(
-          task: task,
-          w: w,
-          job: "3D Task",
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Custom_Card_Completed(
-          task: fakeData_1,
-          w: w,
-          job: "3D Task",
-        ),
-      ],
-    );
+      ]);
+    }
+    return Column(children: list);
   }
 }

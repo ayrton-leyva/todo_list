@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:loading_animations/loading_animations.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
+import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
 class OpeningPage extends StatefulWidget {
   const OpeningPage({super.key});
@@ -11,7 +12,8 @@ class OpeningPage extends StatefulWidget {
 
 class _OpeningPageState extends State<OpeningPage> {
   Future<void> setup(context) async {
-    await Future.delayed(Duration(seconds: 5));
+    functions.reload_all();
+    await Future.delayed(Duration(seconds: 2));
     Navigator.pushReplacementNamed(context, '/HomePage');
   }
 

@@ -11,6 +11,22 @@ import 'package:todo_list/Services/Code_Unity_Task.dart';
 import 'package:todo_list/Services/Writing_Task.dart';
 
 void reload_all() async {
+  // Reset all values
+  globals.Completed_2D = [];
+  globals.Completed_3D = [];
+  globals.Completed_Unity = [];
+  globals.Completed_Writing = [];
+
+  globals.ToReview_2D = [];
+  globals.ToReview_3D = [];
+  globals.ToReview_Writing = [];
+  globals.ToReview_Unity = [];
+
+  globals.ToDo_2D = [];
+  globals.ToDo_3D = [];
+  globals.ToDo_Writing = [];
+  globals.ToDo_Unity = [];
+
   // List 2D Tasks
   var list_2D = await User2DImageTask_SheetsAPI.getAll();
 
@@ -23,6 +39,7 @@ void reload_all() async {
       globals.Completed_2D.add(list_2D[i]);
     }
   }
+  print(" Reaload 2D");
 
   // List 3D Tasks
   var list_3D = await User3DImageTask_SheetsAPI.getAll();
@@ -36,6 +53,7 @@ void reload_all() async {
       globals.Completed_3D.add(list_3D[i]);
     }
   }
+  print(" Reaload 3D");
 
   // List Writing Tasks
   var list_Writing = await UserWritingTask_SheetsAPI.getAll();
@@ -49,6 +67,7 @@ void reload_all() async {
       globals.Completed_Writing.add(list_Writing[i]);
     }
   }
+  print(" Reaload Writing");
 
   // List Unity Tasks
   var list_Unity = await UserCodeUnityTask_SheetsAPI.getAll();
@@ -62,6 +81,7 @@ void reload_all() async {
       globals.Completed_Unity.add(list_Unity[i]);
     }
   }
+  print(" Reaload Unity");
 
   // Sorting 2D
   globals.ToDo_2D.sort(((a, b) => a.gradeLevel.compareTo(b.gradeLevel)));

@@ -37,9 +37,65 @@ class _Home_WritingState extends State<Home_Writing> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Todo_widget(standard_style: standard_style, w: w, h: h),
-            To_Review_widget(standard_style: standard_style, w: w, h: h),
-            Completed_widget(standard_style: standard_style, w: w, h: h),
+            globals.ToDo_Writing == []
+                ? Card(
+                    shadowColor: globals.standard_color,
+                    elevation: 20,
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
+                      child: SizedBox(
+                        width: w * 6 / 7,
+                        height: 100,
+                        child: Center(
+                          child: Text('All Tasks are Completed'),
+                        ),
+                      ),
+                    ),
+                  )
+                : Todo_widget(standard_style: standard_style, w: w, h: h),
+            SizedBox(height: 10),
+            globals.ToReview_Writing == []
+                ? Card(
+                    shadowColor: globals.standard_color,
+                    elevation: 20,
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
+                      child: SizedBox(
+                        width: w * 6 / 7,
+                        height: 100,
+                        child: Center(
+                          child: Text('All Tasks are Completed'),
+                        ),
+                      ),
+                    ),
+                  )
+                : To_Review_widget(standard_style: standard_style, w: w, h: h),
+            SizedBox(height: 10),
+            globals.Completed_Writing == []
+                ? Card(
+                    shadowColor: globals.standard_color,
+                    elevation: 20,
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
+                      child: SizedBox(
+                        width: w * 6 / 7,
+                        height: 100,
+                        child: Center(
+                          child: Text('All Tasks are Completed'),
+                        ),
+                      ),
+                    ),
+                  )
+                : Completed_widget(standard_style: standard_style, w: w, h: h),
           ],
         ),
       ),
