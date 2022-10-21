@@ -33,7 +33,7 @@ const spreadsheetID_Writing_Task =
 const spreadsheetID_Code_Unity_Task =
     '1LkwIYUthgE3JSgXYp6IOUPdW9K-5IG3uSs74u8Em7OY';
 
-Color standard_color = Color.fromARGB(255, 14, 121, 6);
+Color standard_color = Color(0xff3032034);
 
 // 3D Image Taks
 List<Task> ToDo_3D = [];

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
@@ -27,7 +26,7 @@ class Custom_Card_Todo extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task, job);
+                functions.delete_task(task: task, job: job);
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -38,7 +37,9 @@ class Custom_Card_Todo extends StatelessWidget {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                functions.ToDo_to_Review(task: task, job: job);
+              },
               backgroundColor: Colors.green,
               icon: Icons.check_outlined,
             ),
@@ -48,7 +49,7 @@ class Custom_Card_Todo extends StatelessWidget {
           shadowColor: globals.standard_color,
           elevation: 20,
           child: InkWell(
-            splashColor: Color.fromARGB(255, 2, 85, 10).withAlpha(30),
+            splashColor: globals.standard_color.withAlpha(30),
             onTap: () {
               debugPrint('Card tapped.');
             },
@@ -155,19 +156,25 @@ class Custom_Card_Review extends StatelessWidget {
     if (task.confirmedBy.contains("Martina")) counter++;
     List<Widget> just_down = [
       SlidableAction(
-        onPressed: (context) {},
+        onPressed: (context) {
+          functions.Review_thumbs_down(task: task, job: job);
+        },
         backgroundColor: Colors.orange,
         icon: Icons.thumb_down,
       ),
     ];
     List<Widget> both_actions = [
       SlidableAction(
-        onPressed: (context) {},
+        onPressed: (context) {
+          functions.Review_thumbs_down(task: task, job: job);
+        },
         backgroundColor: Colors.orange,
         icon: Icons.thumb_down,
       ),
       SlidableAction(
-        onPressed: (context) {},
+        onPressed: (context) {
+          functions.Review_thumbs_up(task: task, job: job);
+        },
         backgroundColor: Colors.green,
         icon: Icons.thumb_up,
       ),
@@ -180,7 +187,7 @@ class Custom_Card_Review extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task, job);
+                functions.delete_task(task: task, job: job);
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -189,13 +196,15 @@ class Custom_Card_Review extends StatelessWidget {
         ),
         endActionPane: ActionPane(
           motion: ScrollMotion(),
-          children: globals.name == task.completedBy ? just_down : both_actions,
+          children: task.confirmedBy.contains(globals.name)
+              ? just_down
+              : both_actions,
         ),
         child: Card(
           shadowColor: globals.standard_color,
           elevation: 20,
           child: InkWell(
-            splashColor: Color.fromARGB(255, 2, 85, 10).withAlpha(30),
+            splashColor: globals.standard_color.withAlpha(30),
             onTap: () {
               debugPrint('Card tapped.');
               print(task.completedBy);
@@ -340,7 +349,7 @@ class Custom_Card_Completed extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (context) {
-                functions.delete_task(task, job);
+                functions.delete_task(task: task, job: job);
               },
               backgroundColor: Colors.red,
               icon: Icons.delete,
@@ -351,7 +360,9 @@ class Custom_Card_Completed extends StatelessWidget {
           motion: ScrollMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                functions.Completed_to_Review(task: task, job: job);
+              },
               backgroundColor: Colors.orange,
               icon: Icons.thumb_down,
             ),
@@ -361,7 +372,7 @@ class Custom_Card_Completed extends StatelessWidget {
           shadowColor: globals.standard_color,
           elevation: 20,
           child: InkWell(
-            splashColor: Color.fromARGB(255, 2, 85, 10).withAlpha(30),
+            splashColor: globals.standard_color.withAlpha(30),
             onTap: () {
               debugPrint('Card tapped.');
               print(task.completedBy);

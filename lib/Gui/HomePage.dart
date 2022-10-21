@@ -10,6 +10,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
 class Example extends StatefulWidget {
   @override
@@ -212,62 +213,7 @@ void form_dialog(
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      var current_value = 1;
-      return AlertDialog(
-        title: Text(type),
-        content: Stack(
-          children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "SuperClass",
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Name",
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Description",
-                      ),
-                    ),
-                  ),
-                  Slider_Difficulty_(
-                    currentValue: current_value.toDouble(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                            globals.standard_color),
-                      ),
-                      child: Text("Submitß"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+      return Slider_Difficulty_(type: type, formKey: _formKey);
     },
   );
 }
@@ -275,58 +221,127 @@ void form_dialog(
 class Slider_Difficulty_ extends StatefulWidget {
   Slider_Difficulty_({
     super.key,
-    required this.currentValue,
+    required this.type,
+    required this.formKey,
   });
-  double currentValue;
+  String type;
+  GlobalKey<FormState> formKey;
 
   @override
   State<Slider_Difficulty_> createState() => _Slider_Difficulty_State();
 }
 
 class _Slider_Difficulty_State extends State<Slider_Difficulty_> {
+  TextEditingController controller_superTask = TextEditingController();
+  TextEditingController controller_name = TextEditingController();
+  TextEditingController controller_description = TextEditingController();
+
+  var current_value = 1;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 30,
-          height: 30,
-          child: Center(
-              child: Text(
-            widget.currentValue.toInt().toString(),
-            style: TextStyle(color: Colors.white),
-          )),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: (widget.currentValue == 1)
-                ? globals.standard_color.withOpacity(0.6)
-                : (widget.currentValue == 2)
-                    ? globals.standard_color.withOpacity(0.7)
-                    : (widget.currentValue == 3)
-                        ? globals.standard_color.withOpacity(0.8)
-                        : (widget.currentValue == 4)
-                            ? globals.standard_color.withOpacity(0.9)
-                            : globals.standard_color.withOpacity(1),
-            border: Border.all(
-              width: 1,
-              color: Colors.black,
+    return AlertDialog(
+      title: Text(widget.type),
+      content: Stack(
+        children: <Widget>[
+          Form(
+            key: widget.formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: controller_superTask,
+                    decoration: InputDecoration(
+                      hintText: "SuperTask",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: controller_name,
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: controller_description,
+                    decoration: InputDecoration(
+                      hintText: "Description",
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                          child: Text(
+                        current_value.toInt().toString(),
+                        style: TextStyle(color: Colors.white),
+                      )),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (current_value == 1)
+                            ? globals.standard_color.withOpacity(0.6)
+                            : (current_value == 2)
+                                ? globals.standard_color.withOpacity(0.7)
+                                : (current_value == 3)
+                                    ? globals.standard_color.withOpacity(0.8)
+                                    : (current_value == 4)
+                                        ? globals.standard_color
+                                            .withOpacity(0.9)
+                                        : globals.standard_color.withOpacity(1),
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Slider(
+                      thumbColor: globals.standard_color,
+                      activeColor: globals.standard_color.withOpacity(0.8),
+                      inactiveColor: globals.standard_color.withOpacity(0.3),
+                      value: current_value.toDouble(),
+                      min: 1,
+                      max: 5,
+                      onChanged: (value) {
+                        setState(() {
+                          current_value = int.parse(value.ceil().toString());
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll<Color>(
+                          globals.standard_color),
+                    ),
+                    child: Text("Submitß"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      functions.create_new_Task(
+                          job: widget.type,
+                          superTask: controller_superTask.text,
+                          name: controller_name.text,
+                          description: controller_description.text,
+                          gradeLevel: current_value);
+                    },
+                  ),
+                )
+              ],
             ),
           ),
-        ),
-        Slider(
-          thumbColor: Color.fromARGB(255, 5, 43, 2),
-          activeColor: globals.standard_color,
-          inactiveColor: Color.fromARGB(72, 14, 121, 6),
-          value: widget.currentValue,
-          min: 1,
-          max: 5,
-          onChanged: (value) {
-            setState(() {
-              widget.currentValue = double.parse(value.ceil().toString());
-            });
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

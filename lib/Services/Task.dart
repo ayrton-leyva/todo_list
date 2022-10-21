@@ -44,18 +44,58 @@ class Task {
   late String completedBy;
   late String confirmedBy;
   // Constructors
-  Task.init({
+  Task.init_3D({
     required this.superTask,
     required this.name,
     required this.description,
     required this.state,
     required this.gradeLevel,
   }) {
-    initPosition();
+    position = 0;
     date = "--";
     completedBy = "--";
     confirmedBy = "--";
   }
+
+  Task.init_2D({
+    required this.superTask,
+    required this.name,
+    required this.description,
+    required this.state,
+    required this.gradeLevel,
+  }) {
+    position = 0;
+    date = "--";
+    completedBy = "--";
+    confirmedBy = "--";
+  }
+
+  Task.init_Writing({
+    required this.superTask,
+    required this.name,
+    required this.description,
+    required this.state,
+    required this.gradeLevel,
+  }) {
+    position = 0;
+    date = "--";
+    completedBy = "--";
+    confirmedBy = "--";
+  }
+
+  Task.init_Unity({
+    required this.superTask,
+    required this.name,
+    required this.description,
+    required this.state,
+    required this.gradeLevel,
+  }) {
+    position = 0;
+    date = "--";
+    completedBy = "--";
+    confirmedBy = "--";
+  }
+
   Task.getData({
     required this.position,
     required this.superTask,
@@ -69,8 +109,20 @@ class Task {
   });
 
   // Functions
-  void initPosition() async {
-    position = await User2DImageTask_SheetsAPI.getRowCount() + 1;
+  Future<int> initPosition_3D() async {
+    return await User2DImageTask_SheetsAPI.getRowCount() + 1;
+  }
+
+  Future<int> initPosition_2D() async {
+    return await User3DImageTask_SheetsAPI.getRowCount() + 1;
+  }
+
+  Future<int> initPosition_Writing() async {
+    return await UserWritingTask_SheetsAPI.getRowCount() + 1;
+  }
+
+  Future<int> initPosition_Unity() async {
+    return await UserWritingTask_SheetsAPI.getRowCount() + 1;
   }
 
   set setDateTIme(DateTime date) {

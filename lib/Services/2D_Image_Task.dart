@@ -60,7 +60,7 @@ class User2DImageTask_SheetsAPI {
   static Future<List<Task>> getAll() async {
     if (_userSheet == null) return <Task>[];
     final tasks = await _userSheet!.values.map.allRows();
-    return tasks!.map((e) => Task.fromJson(e)).toList();
+    return tasks == null ? [] : tasks.map((e) => Task.fromJson(e)).toList();
   }
 
   static Future<bool> updateAll(
