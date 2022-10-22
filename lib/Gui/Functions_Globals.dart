@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
@@ -33,7 +30,7 @@ void reload_all() async {
   for (int i = 0; i < list_2D.length; i++) {
     if (list_2D[i].state == "TO-DO") {
       globals.ToDo_2D.add(list_2D[i]);
-    } else if (list_2D[i].state == "TO-REVIEW") {
+    } else if (list_2D[i].state == "Review") {
       globals.ToReview_2D.add(list_2D[i]);
     } else {
       globals.Completed_2D.add(list_2D[i]);
@@ -47,7 +44,7 @@ void reload_all() async {
   for (int i = 0; i < list_3D.length; i++) {
     if (list_3D[i].state == "TO-DO") {
       globals.ToDo_3D.add(list_3D[i]);
-    } else if (list_3D[i].state == "TO-REVIEW") {
+    } else if (list_3D[i].state == "Review") {
       globals.ToReview_3D.add(list_3D[i]);
     } else {
       globals.Completed_3D.add(list_3D[i]);
@@ -61,7 +58,7 @@ void reload_all() async {
   for (int i = 0; i < list_Writing.length; i++) {
     if (list_Writing[i].state == "TO-DO") {
       globals.ToDo_Writing.add(list_Writing[i]);
-    } else if (list_Writing[i].state == "TO-REVIEW") {
+    } else if (list_Writing[i].state == "Review") {
       globals.ToReview_Writing.add(list_Writing[i]);
     } else {
       globals.Completed_Writing.add(list_Writing[i]);
@@ -75,7 +72,7 @@ void reload_all() async {
   for (int i = 0; i < list_Unity.length; i++) {
     if (list_Unity[i].state == "TO-DO") {
       globals.ToDo_Unity.add(list_Unity[i]);
-    } else if (list_Unity[i].state == "TO-REVIEW") {
+    } else if (list_Unity[i].state == "Review") {
       globals.ToReview_Unity.add(list_Unity[i]);
     } else {
       globals.Completed_Unity.add(list_Unity[i]);
@@ -102,6 +99,7 @@ void reload_all() async {
   globals.ToReview_Unity.sort(((a, b) => a.gradeLevel.compareTo(b.gradeLevel)));
   globals.Completed_Unity.sort(
       ((a, b) => a.gradeLevel.compareTo(b.gradeLevel)));
+  print(globals.Completed_3D[0].toJson());
   print("Reaload Full");
   // await User2DImageTask_SheetsAPI.insert([fakeData_1.toJson()]);
   // await User2DImageTask_SheetsAPI.insert([fakeData_2.toJson()]);
@@ -111,6 +109,8 @@ void reload_all() async {
 }
 
 void delete_task({required Task task, required String job}) async {
+  // Print Delete
+  debugPrint("Delete Task " + job + "type ${task.state}");
   // eliminate from globals
   switch (job) {
     case "3D Task":
@@ -190,6 +190,7 @@ void create_new_Task(
     required String name,
     required String description,
     required int gradeLevel}) async {
+  debugPrint("Create Task " + job);
   switch (job) {
     case "2D Task":
       var task = Task.init_2D(
@@ -243,6 +244,7 @@ void create_new_Task(
 }
 
 void ToDo_to_Review({required Task task, required String job}) async {
+  debugPrint("ToDo -> Review Task " + job);
   switch (job) {
     case "2D Task":
       final index = globals.ToDo_2D.indexOf(task);
@@ -288,6 +290,7 @@ void ToDo_to_Review({required Task task, required String job}) async {
 }
 
 void Review_thumbs_up({required Task task, required String job}) {
+  debugPrint("Review Task -> Thumbs up" + job);
   task.confirmedBy += globals.name + ",";
   switch (job) {
     case "2D Task":
@@ -316,7 +319,17 @@ void Review_thumbs_up({required Task task, required String job}) {
 }
 
 void Review_thumbs_down({required Task task, required String job}) {
-  task.confirmedBy.replaceAll(globals.name + ",", "");
+  debugPrint("Review -> thumbs down " + job);
+  var list = task.confirmedBy.split(',');
+  var new_conf = "";
+  for (int i = 0; i < list.length; i++) {
+    if (list[i] == globals.name)
+      continue;
+    else
+      new_conf += list[i];
+  }
+  task.confirmedBy = new_conf;
+
   switch (job) {
     case "2D Task":
       User2DImageTask_SheetsAPI.updateCell(
@@ -342,6 +355,7 @@ void Review_thumbs_down({required Task task, required String job}) {
 }
 
 void Review_to_ToDo({required Task task, required String job}) async {
+  debugPrint("Review -> ToDo Task " + job);
   switch (job) {
     case "2D Task":
       final index = globals.ToReview_2D.indexOf(task);
@@ -387,6 +401,7 @@ void Review_to_ToDo({required Task task, required String job}) async {
 }
 
 void Review_to_Completed({required Task task, required String job}) async {
+  debugPrint("Review -> Completed Task " + job);
   switch (job) {
     case "2D Task":
       final index = globals.ToReview_3D.indexOf(task);
@@ -424,6 +439,7 @@ void Review_to_Completed({required Task task, required String job}) async {
 }
 
 void Completed_to_Review({required Task task, required String job}) async {
+  debugPrint("Completed -> Review Task " + job);
   switch (job) {
     case "2D Task":
       final index = globals.Completed_2D.indexOf(task);
@@ -458,5 +474,4 @@ void Completed_to_Review({required Task task, required String job}) async {
       await UserCodeUnityTask_SheetsAPI.updateAll(task.position, task.toJson());
       break;
   }
-  // remove from completed and add to review
 }

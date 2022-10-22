@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
 import 'package:gsheets/gsheets.dart';
 import 'package:todo_list/Services/Task.dart';

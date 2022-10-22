@@ -13,7 +13,7 @@ class OpeningPage extends StatefulWidget {
 class _OpeningPageState extends State<OpeningPage> {
   Future<void> setup(context) async {
     functions.reload_all();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 4));
     Navigator.pushReplacementNamed(context, '/HomePage');
   }
 

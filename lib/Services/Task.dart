@@ -1,8 +1,6 @@
 import '2D_Image_Task.dart';
 import '3D_Image_Task.dart';
-import 'Code_Unity_Task.dart';
 import 'Writing_Task.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert';
 
 class SheetField {
@@ -123,10 +121,6 @@ class Task {
 
   Future<int> initPosition_Unity() async {
     return await UserWritingTask_SheetsAPI.getRowCount() + 1;
-  }
-
-  set setDateTIme(DateTime date) {
-    this.date = date.toLocal().toString();
   }
 
   set setCompletedBy(String name) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
 import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
+import 'package:todo_list/Gui/Custom_cards.dart';
 
 class Home_Writing extends StatefulWidget {
   const Home_Writing({super.key});
@@ -37,63 +38,120 @@ class _Home_WritingState extends State<Home_Writing> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            globals.ToDo_Writing == []
-                ? Card(
-                    shadowColor: globals.standard_color,
-                    elevation: 20,
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      onTap: () {
-                        debugPrint('Card tapped.');
-                      },
-                      child: SizedBox(
-                        width: w * 6 / 7,
-                        height: 100,
-                        child: Center(
-                          child: Text('All Tasks are Completed'),
+            globals.ToDo_Writing.isEmpty
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            child: Text(
+                              "To-do List",
+                              style: standard_style,
+                            ),
+                            onTap: () {
+                              print("works");
+                            },
+                          ),
                         ),
                       ),
-                    ),
+                      Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: globals.standard_color.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('All Tasks are Completed'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : Todo_widget(standard_style: standard_style, w: w, h: h),
             SizedBox(height: 10),
-            globals.ToReview_Writing == []
-                ? Card(
-                    shadowColor: globals.standard_color,
-                    elevation: 20,
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      onTap: () {
-                        debugPrint('Card tapped.');
-                      },
-                      child: SizedBox(
-                        width: w * 6 / 7,
-                        height: 100,
-                        child: Center(
-                          child: Text('All Tasks are Completed'),
+            globals.ToReview_Writing.isEmpty
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            child: Text(
+                              "To-Review List",
+                              style: standard_style,
+                            ),
+                            onTap: () {
+                              print("works");
+                            },
+                          ),
                         ),
                       ),
-                    ),
+                      Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: globals.standard_color.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('Nothing to Review'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : To_Review_widget(standard_style: standard_style, w: w, h: h),
             SizedBox(height: 10),
-            globals.Completed_Writing == []
-                ? Card(
-                    shadowColor: globals.standard_color,
-                    elevation: 20,
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      onTap: () {
-                        debugPrint('Card tapped.');
-                      },
-                      child: SizedBox(
-                        width: w * 6 / 7,
-                        height: 100,
-                        child: Center(
-                          child: Text('All Tasks are Completed'),
+            globals.Completed_Writing.isEmpty
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            child: Text(
+                              "Completed List",
+                              style: standard_style,
+                            ),
+                            onTap: () {
+                              print("works");
+                            },
+                          ),
                         ),
                       ),
-                    ),
+                      Card(
+                        shadowColor: globals.standard_color,
+                        elevation: 20,
+                        child: InkWell(
+                          splashColor: globals.standard_color.withAlpha(30),
+                          onTap: () {
+                            debugPrint('Card tapped.');
+                          },
+                          child: SizedBox(
+                            width: w * 6 / 7,
+                            height: 100,
+                            child: Center(
+                              child: Text('All Tasks are Completed'),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : Completed_widget(standard_style: standard_style, w: w, h: h),
           ],
@@ -103,7 +161,7 @@ class _Home_WritingState extends State<Home_Writing> {
   }
 }
 
-class Todo_widget extends StatelessWidget {
+class Todo_widget extends StatefulWidget {
   const Todo_widget({
     Key? key,
     required this.standard_style,
@@ -116,47 +174,46 @@ class Todo_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<Todo_widget> createState() => _Todo_widgetState();
+}
+
+class _Todo_widgetState extends State<Todo_widget> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "To-do List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.green,
-          elevation: 20,
+    List<Widget> list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
           child: InkWell(
-            splashColor: Colors.blue.withAlpha(30),
-            onTap: () {
-              debugPrint('Card tapped.');
-            },
-            child: SizedBox(
-              width: w * 6 / 7,
-              height: 100,
-              child: Center(
-                child: Text('All Tasks are Completed'),
-              ),
+            child: Text(
+              "To-do List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
-      ],
-    );
+      ),
+    ];
+    for (int i = 0; i < globals.ToDo_Writing.length; i++) {
+      list.addAll([
+        Custom_Card_Todo(
+          w: widget.w,
+          task: globals.ToDo_Writing[i],
+          job: "Writing Task",
+        ),
+        SizedBox(
+          height: 5,
+        ),
+      ]);
+    }
+    return Column(children: list);
   }
 }
 
-class To_Review_widget extends StatelessWidget {
+class To_Review_widget extends StatefulWidget {
   const To_Review_widget({
     Key? key,
     required this.standard_style,
@@ -169,47 +226,46 @@ class To_Review_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<To_Review_widget> createState() => _To_Review_widgetState();
+}
+
+class _To_Review_widgetState extends State<To_Review_widget> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "To-Review List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.green,
-          elevation: 20,
+    List<Widget> list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
           child: InkWell(
-            splashColor: Colors.blue.withAlpha(30),
-            onTap: () {
-              debugPrint('Card tapped.');
-            },
-            child: SizedBox(
-              width: w * 6 / 7,
-              height: 100,
-              child: Center(
-                child: Text('Nothing to Review'),
-              ),
+            child: Text(
+              "To-Review List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
-      ],
-    );
+      ),
+    ];
+    for (int i = 0; i < globals.ToReview_Writing.length; i++) {
+      list.addAll([
+        Custom_Card_Review(
+          w: widget.w,
+          task: globals.ToReview_Writing[i],
+          job: "Writing Task",
+        ),
+        SizedBox(
+          height: 5,
+        ),
+      ]);
+    }
+    return Column(children: list);
   }
 }
 
-class Completed_widget extends StatelessWidget {
+class Completed_widget extends StatefulWidget {
   const Completed_widget({
     Key? key,
     required this.standard_style,
@@ -222,42 +278,42 @@ class Completed_widget extends StatelessWidget {
   final double h;
 
   @override
+  State<Completed_widget> createState() => _Completed_widgetState();
+}
+
+class _Completed_widgetState extends State<Completed_widget> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: InkWell(
-              child: Text(
-                "Completed List",
-                style: standard_style,
-              ),
-              onTap: () {
-                print("works");
-              },
-            ),
-          ),
-        ),
-        Card(
-          shadowColor: Colors.green,
-          elevation: 20,
+    List<Widget> list = [];
+    list = [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+        child: Align(
+          alignment: Alignment.topLeft,
           child: InkWell(
-            splashColor: Colors.blue.withAlpha(30),
-            onTap: () {
-              debugPrint('Card tapped.');
-            },
-            child: SizedBox(
-              width: w * 6 / 7,
-              height: 100,
-              child: Center(
-                child: Text('Nothing Done yet'),
-              ),
+            child: Text(
+              "Completed List",
+              style: widget.standard_style,
             ),
+            onTap: () {
+              print("works");
+            },
           ),
         ),
-      ],
-    );
+      ),
+    ];
+    for (int i = 0; i < globals.Completed_Writing.length; i++) {
+      list.addAll([
+        Custom_Card_Completed(
+          w: widget.w,
+          task: globals.Completed_Writing[i],
+          job: "Writing Task",
+        ),
+        SizedBox(
+          height: 5,
+        ),
+      ]);
+    }
+    return Column(children: list);
   }
 }

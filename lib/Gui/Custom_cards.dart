@@ -1,8 +1,8 @@
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:todo_list/Services/Globals.dart' as globals;
 import 'package:todo_list/Services/Task.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:todo_list/Gui/Functions_Globals.dart' as functions;
 
 class Custom_Card_Todo extends StatefulWidget {
@@ -312,14 +312,14 @@ class _Custom_Card_ReviewState extends State<Custom_Card_Review> {
                             ? Padding(
                                 padding: EdgeInsets.fromLTRB(15, 0, 0, 0.0),
                                 child: Icon(
-                                  Ionicons.checkmark_done_circle_outline,
+                                  LineIcons.check,
                                   size: 12,
                                 ),
                               )
                             : Padding(
                                 padding: EdgeInsets.fromLTRB(15, 0, 0, 0.0),
                                 child: Icon(
-                                  Ionicons.close_circle_outline,
+                                  LineIcons.check,
                                   size: 12,
                                 ),
                               )

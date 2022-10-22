@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:todo_list/Gui/2D_Task.dart';
 import 'package:todo_list/Gui/3D_Task.dart';
 import 'package:todo_list/Gui/Code.dart';
@@ -86,7 +85,7 @@ class _ExampleState extends State<Example> {
           ),
           SpeedDialChild(
             child: Icon(
-              Ionicons.color_palette_outline,
+              LineIcons.paintRoller,
               color: globals.standard_color,
             ),
             backgroundColor: Colors.white,
